@@ -31,13 +31,18 @@ public class Swagger2Config {
                 .paths(PathSelectors.any())
                 .build();
     }
-    // 一些接口文档信息的简介
+
+    /**
+     * 一些接口文档信息的简介
+     *
+     * @return
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("spring Boot 中构建RESTful API")
                 .termsOfServiceUrl("")
-                .contact(new Contact("demo","",""))
+                .contact(new Contact("demo", "", ""))
                 .version("1.0")
                 .build();
     }

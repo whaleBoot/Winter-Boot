@@ -61,7 +61,7 @@ public class JacksonJsonUtil {
         Map<String, Map<String, Object>> map = objectMapper.readValue(jsonStr,
                 new TypeReference<Map<String, T>>() {
                 });
-        Map<String, T> result = new HashMap<String, T>();
+        Map<String, T> result = new HashMap<String, T>(16);
         for (Map.Entry<String, Map<String, Object>> entry : map.entrySet()) {
             result.put(entry.getKey(), map2pojo(entry.getValue(), clazz));
         }

@@ -42,7 +42,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object obj)  {
         //对于OPTIONS请求，一直返回允许访问
         if(request instanceof HttpServletRequest){
-            if(((HttpServletRequest) request).getMethod().toUpperCase().equals("OPTIONS")){
+            if("OPTIONS".equals(((HttpServletRequest) request).getMethod().toUpperCase())){
                 log.info("Ajax 登录认证跨域请求Options预检通过");
                 return true;
             }

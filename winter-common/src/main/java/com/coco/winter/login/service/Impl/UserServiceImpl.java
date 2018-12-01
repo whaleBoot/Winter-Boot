@@ -5,7 +5,6 @@ import com.coco.winter.login.dao.UserDao;
 import com.coco.winter.login.entity.UserInfo;
 import com.coco.winter.login.service.UserService;
 import com.coco.winter.utils.MD5Tools;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

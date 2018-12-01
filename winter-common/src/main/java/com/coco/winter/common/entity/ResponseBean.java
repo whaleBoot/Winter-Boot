@@ -21,6 +21,8 @@ public class ResponseBean {
 
     private Object data;
 
-    //用于存放token的值，jwtToken
+    /**
+     * 用于存放token的值，jwtToken
+     */
     private Map<String, Object> token;
 }

@@ -22,8 +22,8 @@ public class MD5Tools {
      */
     public static String MD5(String pwd) {
         //用于加密的字符
-        char md5String[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F' };
+        char[] md5String = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'A', 'B', 'C', 'D', 'E', 'F'};
         try {
             //使用平台的默认字符集将此 String 编码为 byte序列，并将结果存储到一个新的 byte数组中
             byte[] btInput = pwd.getBytes();
@@ -39,7 +39,7 @@ public class MD5Tools {
 
             // 把密文转换成十六进制的字符串形式
             int j = md.length;
-            char str[] = new char[j * 2];
+            char[] str = new char[j * 2];
             int k = 0;
             for (int i = 0; i < j; i++) {   //  i = 0
                 byte byte0 = md[i];  //95
@@ -108,7 +108,7 @@ public class MD5Tools {
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] bs = md5.digest(src.getBytes());
-            return new String(new Hex().encode(bs));
+            return new String(Hex.encode(bs));
         } catch (Exception e) {
             return null;
         }

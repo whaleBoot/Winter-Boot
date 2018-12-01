@@ -15,9 +15,26 @@ import java.util.Map;
 
 public interface UserService {
 
+    /**
+     * 通过用户名查找用户信息
+     * @param userName
+     * @return
+     */
     UserInfo fingByUserName(String userName);
 
+    /**
+     * 注册用户
+     * @param userName
+     * @param passWord
+     * @return
+     */
     boolean insertUser(String userName, String passWord);
 
+    /**
+     * 用户登录
+     * @param map
+     * @return
+     * @throws Exception
+     */
     UserInfo userLogin(Map<String,Object> map) throws Exception;
 }

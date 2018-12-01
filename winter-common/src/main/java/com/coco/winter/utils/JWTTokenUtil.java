@@ -32,7 +32,6 @@ public class JWTTokenUtil {
      * @return
      */
     public static String createJWT(String poyload, String authJm) {
-        //System.out.print("载荷的值："+poyload);
         //加密方式HS256 使用jsonwebtoken
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -97,9 +96,8 @@ public class JWTTokenUtil {
             Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(authJm))
                     .parseClaimsJws(jwt).getBody();
 
-            String sign_new = createJWT(JacksonJsonUtil.obj2json(claims), authJm).split("\\.")[2];
-            if (sign_new.equals(sign)) {
-                //System.out.println("匹配一致，数据没有篡改!");
+            String signNew = createJWT(JacksonJsonUtil.obj2json(claims), authJm).split("\\.")[2];
+            if (signNew.equals(sign)) {
                 log.info("token解析成功，匹配一致，数据没有篡改!");
                 return claims;
             } else {

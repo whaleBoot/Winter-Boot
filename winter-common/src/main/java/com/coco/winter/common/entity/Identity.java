@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @ClassName Identity
- * @Description JWTtoken的载荷体
+ * @Description JwtToken的载荷体
  * @Author like
  * @Data 2018/11/10 16:57
  * @Version 1.0
