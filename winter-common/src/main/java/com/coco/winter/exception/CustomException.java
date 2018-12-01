@@ -1,6 +1,7 @@
 package com.coco.winter.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @ClassName CustomException
@@ -10,6 +11,7 @@ import lombok.Data;
  * @Version 1.0
  **/
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CustomException extends RuntimeException {
 

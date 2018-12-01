@@ -1,6 +1,9 @@
 package com.coco.winter.login.service;
 
 import com.coco.winter.login.entity.UserInfo;
+import org.apache.catalina.User;
+
+import java.util.Map;
 
 /**
  * @ClassName UserService
@@ -15,4 +18,6 @@ public interface UserService {
     UserInfo fingByUserName(String userName);
 
     boolean insertUser(String userName, String passWord);
+
+    UserInfo userLogin(Map<String,Object> map) throws Exception;
 }

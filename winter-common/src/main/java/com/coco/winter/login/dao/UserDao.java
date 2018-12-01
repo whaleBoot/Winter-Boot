@@ -1,6 +1,6 @@
 package com.coco.winter.login.dao;
 
-import com.coco.whale.login.entity.UserInfo;
+import com.coco.winter.login.entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

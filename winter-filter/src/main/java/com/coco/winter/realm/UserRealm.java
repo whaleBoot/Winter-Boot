@@ -41,6 +41,14 @@ public class UserRealm extends AuthorizingRealm {
     private RedisUtil redisUtil;
 
     /**
+     * 当使用自定义token时，必须重写此方法，不然Shiro会报错
+     */
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }
+
+    /**
      * 授权 权限管理
      *
      * @param principalCollection
@@ -76,6 +84,7 @@ public class UserRealm extends AuthorizingRealm {
         String username = jwtToken.getUsername();
         // 获取 密码，字符数组需要转型为 String
         String password = jwtToken.getPassword();
+        String userId = jwtToken.getUserId();
 
         int status = jwtToken.getStatus();//0:web 1:mobile
         if (status == 0) {
@@ -92,22 +101,16 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         if (status == 0) {
-            //web端
-            //从数据库中获取登录信息，获取到说明存在，并且生成token存到redis中，获取不到则返回提示信息登录失败
-            UserInfo userInfo = userService.fingByUserName(username);
-            //判断 user不为空  并且密码通过md5的加盐的比对  结果为true 说明密码正确
-            if (userInfo != null && MD5Tools.verify(password, userInfo.getPassword())) {
-                //生成token  并保存到redis 密钥也保存到redis
-                createWebToken(SecurityUtils.getSubject().getSession(), userInfo.getUid(), userInfo.getName(), userInfo.getPassword());
-                // 身份认证成功，返回 SimpleAuthenticationInfo 对象  参数1：用户名 参数2：密码参数3：当前 Realm 的名称
-                return new SimpleAuthenticationInfo(username, password, this.getName());
-            } else {
-                throw new AuthenticationException("用户名或密码错误！");
-            }
+            //web端  此处不需要对账号密码进行验证，已经在service验证过
+            //生成token  并保存到redis 密钥也保存到redis
+            createWebToken(SecurityUtils.getSubject().getSession(), userId, username, password);
+            // 身份认证成功，返回 SimpleAuthenticationInfo 对象  参数1：用户名 参数2：密码参数3：当前 Realm 的名称
+            return new SimpleAuthenticationInfo(username, password, this.getName());
+
         } else {
             //移动端时登录
             //生成token  并保存token
-            createMobileToken("1", username, password);
+            createMobileToken(userId, username, password);
             // 身份认证成功，返回 SimpleAuthenticationInfo 对象  参数1：用户名 参数2：密码参数3：当前 Realm 的名称
             return new SimpleAuthenticationInfo(username, password, this.getName());
         }

@@ -1,11 +1,15 @@
 package com.coco.winter.login.service.Impl;
 
-import com.coco.whale.common.utils.MD5Tools;
-import com.coco.whale.login.dao.UserDao;
-import com.coco.whale.login.entity.UserInfo;
-import com.coco.whale.login.service.UserService;
+import com.coco.winter.exception.CustomException;
+import com.coco.winter.login.dao.UserDao;
+import com.coco.winter.login.entity.UserInfo;
+import com.coco.winter.login.service.UserService;
+import com.coco.winter.utils.MD5Tools;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @ClassName UserServiceImpl
@@ -39,5 +43,22 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public UserInfo userLogin(Map<String, Object> map)throws Exception {
+        String userName = String.valueOf(map.get("userName"));
+        String passWord = String.valueOf(map.get("passWord"));
+        UserInfo userInfo = userDao.findByUsername(userName);
+        if (userInfo == null) {
+            throw new CustomException(-1, "用户名或密码错误！");
+        }
+        String passWordMD5 = userInfo.getPassword();
+        if (MD5Tools.verify(passWord, passWordMD5)) {
+            return userInfo;
+        } else {
+            throw new CustomException(-1, "用户名或密码错误！");
+
+        }
     }
 }

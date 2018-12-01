@@ -16,19 +16,37 @@ public class JwtToken implements AuthenticationToken {
 
     private static final long serialVersionUID = 8684418752076285487L;
 
+    private String userId;
+
     private String username;
 
     private String password;
 
     private String host;
 
-    /**用于区分用户来源 0：web用户；1：移动用户**/
+    /**
+     * 用于区分用户来源 0：web用户；1：移动用户
+     **/
     private int status;
 
-    public JwtToken(String username, String password, String host, int status) {
+    public JwtToken(String userId, String username, String password, String host, int status) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.host = host;
+        this.status = status;
+    }
+
+    public JwtToken(String userId, String username, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+    }
+
+    public JwtToken(String userId, String username, String password, int status) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
         this.status = status;
     }
 
